@@ -9,7 +9,12 @@ router.get('/', function (req, res, next) {
     // Optional arguments passed to youtube-dl.
     ytdl.getInfo(url, function callback(err, info) {
       res.setHeader('Content-Type', 'application/json');
-      res.send(info.formats);
+      if (err) {
+        res.send('{"errorcode" : "404"}');
+      }
+      if (info) {
+        res.send(info);
+      }
     })
   }
 });
